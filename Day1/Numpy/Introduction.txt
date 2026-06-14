@@ -1,0 +1,4 @@
+NumPy (Numerical Python) : It is a powerful Python library used for numerical computing, 
+                           array operations, mathematical calculations, and 
+                           data science applications
+                           
