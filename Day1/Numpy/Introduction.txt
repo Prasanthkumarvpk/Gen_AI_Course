@@ -1,4 +1,10 @@
+NumPy is a Python library used for working with arrays.
+
 NumPy (Numerical Python) : It is a powerful Python library used for numerical computing, 
                            array operations, mathematical calculations, and 
                            data science applications
-                           
+
+
+NumPy is used to work with arrays. The array object in NumPy is called ndarray.
+
+We can create a NumPy ndarray object by using the array() function. 
