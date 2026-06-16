@@ -1,0 +1,81 @@
+1. Introduction to Pandas
+2. Series
+3. DataFrame
+4. Creating DataFrames
+5. Reading CSV Files
+6. Reading Excel Files
+7. Reading JSON Files
+8. head()
+9. tail()
+10. sample()
+11. info()
+12. describe()
+13. shape
+14. columns
+15. index
+16. dtypes
+
+17. Column Selection
+18. Multiple Column Selection
+19. Row Selection
+20. loc[]
+21. iloc[]
+
+22. Filtering
+23. Multiple Conditions
+24. isin()
+25. query()
+
+26. Sorting
+27. sort_values()
+28. sort_index()
+
+29. Missing Values
+30. isnull()
+31. notnull()
+32. dropna()
+33. fillna()
+
+34. Rename Columns
+35. Change Datatypes
+
+36. String Operations
+37. upper()
+38. lower()
+39. contains()
+40. replace()
+41. split()
+
+42. GroupBy
+43. Aggregations
+44. count()
+45. sum()
+46. mean()
+47. min()
+48. max()
+
+49. Merge
+50. Join
+51. Concat
+
+52. Pivot Table
+53. Crosstab
+
+54. Apply
+55. Map
+56. Lambda Functions
+
+57. Duplicate Handling
+
+58. DateTime Operations
+59. to_datetime()
+60. year
+61. month
+62. day
+
+63. Export CSV
+64. Export Excel
+
+65. Interview Questions
+66. Real World Examples
+

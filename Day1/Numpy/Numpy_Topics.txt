@@ -1,0 +1,198 @@
+NUMPY MASTER NOTES ROADMAP 
+==========================
+Introduction to NumPy  :-
+==========================
+
+Why NumPy?
+Installing NumPy
+Importing NumPy
+ndarray (NumPy Array)
+ARRAY CREATION
+array()
+0-D Arrays
+1-D Arrays
+2-D Arrays
+3-D Arrays
+Higher Dimensional Arrays
+ndmin Parameter
+ndim Attribute
+ARRAY PROPERTIES
+shape
+size
+dtype
+itemsize
+nbytes
+astype()
+COPY AND VIEW
+copy()
+view()
+Difference Between Copy and View
+base Attribute
+RESHAPING ARRAYS
+reshape()
+Flattening Arrays
+reshape(-1)
+reshape with Unknown Dimension
+ravel()
+flatten()
+ARRAY ITERATION
+Basic Iteration
+Iterating 2D Arrays
+Iterating 3D Arrays
+nditer()
+op_dtypes
+buffered
+Different Step Iteration
+ndenumerate()
+INDEXING AND SLICING
+Array Indexing
+Negative Indexing
+Slicing
+Step Slicing
+Multi-dimensional Slicing
+JOINING ARRAYS
+concatenate()
+stack()
+hstack()
+vstack()
+dstack()
+Difference Between Stack Methods
+SPLITTING ARRAYS
+array_split()
+split()
+hsplit()
+vsplit()
+dsplit()
+SEARCHING ARRAYS
+where()
+searchsorted()
+Search Single Value
+Search Multiple Values
+Search Even Numbers
+Search Odd Numbers
+SORTING ARRAYS
+sort()
+Sorting Numbers
+Sorting Strings
+Sorting Boolean Arrays
+Sorting 2D Arrays
+FILTERING ARRAYS
+Boolean Filtering
+Custom Filter Arrays
+Direct Conditional Filtering
+MATHEMATICAL OPERATIONS
+sum()
+mean()
+median()
+std()
+var()
+min()
+max()
+argmin()
+argmax()
+ARITHMETIC OPERATIONS
+Addition
+Subtraction
+Multiplication
+Division
+Modulus
+Power
+BROADCASTING
+Broadcasting Concept
+Broadcasting Rules
+Scalar Broadcasting
+Array Broadcasting
+MATRIX OPERATIONS
+dot()
+matmul()
+transpose()
+Matrix Multiplication
+Identity Matrix
+NUMPY RANDOM
+random.randint()
+random.rand()
+random.choice()
+random.shuffle()
+random.permutation()
+RANDOM DISTRIBUTIONS
+Normal Distribution
+Binomial Distribution
+Poisson Distribution
+Uniform Distribution
+Logistic Distribution
+Multinomial Distribution
+Exponential Distribution
+Chi-Square Distribution
+Rayleigh Distribution
+Pareto Distribution
+Zipf Distribution
+LINEAR ALGEBRA
+numpy.linalg
+determinant()
+inverse()
+eigenvalues()
+eigenvectors()
+STATISTICAL FUNCTIONS
+percentile()
+quantile()
+covariance()
+correlation()
+UNIQUE AND SET OPERATIONS
+unique()
+intersect1d()
+union1d()
+setdiff1d()
+FILE OPERATIONS
+save()
+load()
+savetxt()
+loadtxt()
+NUMPY VS PYTHON LISTS
+Performance Comparison
+Memory Comparison
+Vectorization
+INTERVIEW QUESTIONS
+What is NumPy?
+Why NumPy is Faster?
+ndarray vs List
+shape vs size
+copy vs view
+reshape vs flatten
+concatenate vs stack
+where vs searchsorted
+Broadcasting
+Vectorization
+Matrix Operations
+REAL WORLD EXAMPLES
+Student Marks Analysis
+Sales Data Analysis
+Image Processing Arrays
+Machine Learning Dataset Operations
+Statistical Analysis
+
+END OF NUMPY MASTER NOTES
+
+NumPy is a Python library used for working with arrays.
+
+NumPy (Numerical Python) : It is a powerful Python library used for numerical computing, 
+                           array operations, mathematical calculations, and 
+                           data science applications
+
+
+NumPy is used to work with arrays. The array object in NumPy is called ndarray.
+
+We can create a NumPy ndarray object by using the array() function. 
+
+1-D Arrays : An array that has 0-D arrays as its elements is called uni-dimensional or 1-D array.
+
+            These are the most common and basic arrays
+
+An array that has 1-D arrays as its elements is called a 2-D array.
+
+These are often used to represent matrix or 2nd order tensors.
+
+ndim --> It is used to check the numner of dimensions in an array
+
+Higher Dimensional Arrays : An array can have any number of dimensions.
+
+When the array is created, you can define the number of dimensions by using the ndmin argument.
