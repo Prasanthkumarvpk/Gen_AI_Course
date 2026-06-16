@@ -1,0 +1,140 @@
+Scikit-Learn Roadmap : 
+=====================
+
+1. What is Machine Learning? ==> Patterns learned from existing or trained data
+
+2. Scikit Learn Basics ==> Building Models
+
+Supervised Learning
+3. Linear Regression
+4. Logistic Regression
+5. Decision Tree
+6. Random Forest
+7. KNN
+8. SVM
+
+Unsupervised Learning
+9. KMeans Clustering
+
+Preprocessing
+10. Train Test Split
+11. StandardScaler
+12. LabelEncoder
+13. OneHotEncoder
+
+Evaluation
+14. Accuracy
+15. Confusion Matrix
+16. Precision
+17. Recall
+18. F1 Score
+
+Projects
+19. Salary Prediction
+20. House Price Prediction
+21. Student Pass/Fail Prediction
+22. Customer Segmentation
+
+Scikit-Learn - For Building Models
+
+Scikit-Learn ni formulas laga kaakunda real-world stories tho nerchukundham.
+
+Scikit-Learn Ante Enti?
+
+Imagine:
+
+Nuvvu oka HR company lo work chesthunav.
+
+1000 candidates data undi.
+
+Experience  Skills  Degree  Selected?
+-------------------------------------
+1 Year      5       B.Tech    No
+3 Years     7       B.Tech    Yes
+5 Years     8       M.Tech    Yes
+
+Ippudu kotha candidate vachadu.
+
+Experience = 4 Years
+Skills = 7
+Degree = B.Tech
+
+Question:
+
+Ee candidate select avuthada?
+
+Manam manually guess cheyyachu.
+
+Kani Machine Learning model thousands records chusi answer chepthundi.
+
+Scikit-Learn ee models build cheyyadaniki use chestham.
+
+First Understand Machine Learning
+
+Real Life Example:
+
+Nuvvu chinnappudu mango ni ela identify cheyyadam nerchukunnav?
+
+Amma cheppindi:
+
+Yellow color
+Sweet smell
+Oval shape
+
+=> Mango
+
+Konni examples chusaka automatic ga mango identify chesthav.
+
+Machine Learning kuda ade.
+
+Data chupistham.
+
+Machine patterns nerchukuntundi.
+
+Future predictions chestundi.
+
+Types Of Machine Learning
+1. Supervised Learning
+
+Teacher untadu.
+
+Questions + Answers rendu untayi.
+
+Example:
+
+Experience   Salary
+1            20000
+2            30000
+3            40000
+4            50000
+
+Question:
+
+5 years experience unte salary entha?
+
+Answer already data lo undi.
+
+Idi Supervised Learning.
+
+2. Unsupervised Learning
+
+Teacher ledu.
+
+Answers levu.
+
+Example:
+
+Shop customers data.
+
+Customer A spends 500
+Customer B spends 600
+Customer C spends 5000
+Customer D spends 5500
+
+System chepthundi:
+
+Group 1 = Normal Customers
+
+Group 2 = Premium Customers
+
+Idi Clustering.
