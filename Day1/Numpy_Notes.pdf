@@ -1,0 +1,1744 @@
+# ============================================================
+# NUMPY COMPLETE NOTES - INTERVIEWS AND PRACTICE
+# ============================================================
+#
+# 1.  Introduction to NumPy
+# 2.  Array Creation
+# 3.  0D Array (Scalar)
+# 4.  1D Array
+# 5.  2D Array
+# 6.  3D Array
+# 7.  ndim
+# 8.  shape
+# 9.  size
+# 10. dtype
+# 11. reshape()
+# 12. Copy vs View
+# 13. Indexing
+# 14. Slicing
+# 15. Iterating
+# 16. nditer()
+# 17. ndenumerate()
+# 18. Joining Arrays - concatenate()
+# 19. Stack - hstack() vstack() dstack()
+# 20. Splitting Arrays - array_split()
+# 21. hsplit() vsplit() dsplit()
+# 22. Searching - where()
+# 23. searchsorted()
+# 24. Sorting
+# 25. Filter Arrays
+# 26. Random Numbers - randint() rand()
+# 27. choice()
+# 28. shuffle() permutation()
+# 29. Random Distributions
+# 30. Normal Distribution
+# 31. Binomial Distribution
+# 32. Poisson Distribution
+# 33. Uniform Distribution
+# 34. Logistic Distribution
+# 35. Exponential Distribution
+# 36. Mathematical Operations
+# 37. Matrix Operations - dot()
+# 38. Broadcasting
+# 39. String DataType Arrays
+# 40. Boolean Arrays
+# 41. zeros() ones() full()
+# 42. arange() linspace()
+# 43. eye() (Identity Matrix)
+# 44. Statistical Functions
+# 45. where() (Conditional Replace)
+# 46. unique()
+# 47. flatten() ravel()
+# 48. transpose()
+# 49. Real World Examples
+# 50. Interview Questions
+# ============================================================
+
+import numpy as np
+
+print("NumPy Version:", np.__version__)
+
+# ============================================================
+# 1. INTRODUCTION TO NUMPY
+# ============================================================
+
+print("\n" + "=" * 60)
+print("1. INTRODUCTION TO NUMPY")
+print("=" * 60)
+
+# What is NumPy?
+# NumPy = Numerical Python
+# - Fast array operations
+# - Mathematical functions
+# - Used in AI, ML, Data Science
+# - Built on C language (that's why it's fast)
+
+# Why NumPy over Python List?
+import time
+
+# Python List - slow
+big_list = list(range(1000000))
+start = time.time()
+result = [x * 2 for x in big_list]
+list_time = time.time() - start
+
+# NumPy Array - fast
+big_array = np.array(range(1000000))
+start = time.time()
+result = big_array * 2
+numpy_time = time.time() - start
+
+print(f"Python List Time : {list_time:.4f} sec")
+print(f"NumPy Array Time : {numpy_time:.4f} sec")
+print(f"NumPy is {list_time/numpy_time:.0f}x faster!")
+
+# ============================================================
+# 2. ARRAY CREATION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("2. ARRAY CREATION")
+print("=" * 60)
+
+# From list
+arr = np.array([1, 2, 3, 4, 5])
+print("From list       :", arr)          # [1 2 3 4 5]
+
+# From tuple
+arr = np.array((10, 20, 30))
+print("From tuple      :", arr)          # [10 20 30]
+
+# From range
+arr = np.array(range(1, 6))
+print("From range      :", arr)          # [1 2 3 4 5]
+
+# With specific dtype
+arr = np.array([1, 2, 3], dtype=float)
+print("With dtype float:", arr)          # [1. 2. 3.]
+
+arr = np.array([1.7, 2.9, 3.5], dtype=int)
+print("With dtype int  :", arr)          # [1 2 3]
+
+# ============================================================
+# 3. 0D ARRAY (SCALAR)
+# ============================================================
+
+print("\n" + "=" * 60)
+print("3. 0D ARRAY (SCALAR)")
+print("=" * 60)
+
+# 0D = single value, no rows no columns
+arr = np.array(42)
+print("0D Array :", arr)         # 42
+print("ndim     :", arr.ndim)    # 0
+print("shape    :", arr.shape)   # ()
+print("dtype    :", arr.dtype)   # int64
+
+# Access value
+print("Value    :", arr.item())  # 42
+
+# Real use: storing single result
+temperature = np.array(36.6)
+print("Temperature:", temperature)  # 36.6
+
+# ============================================================
+# 4. 1D ARRAY
+# ============================================================
+
+print("\n" + "=" * 60)
+print("4. 1D ARRAY")
+print("=" * 60)
+
+arr = np.array([1, 2, 3, 4, 5])
+print("1D Array :", arr)         # [1 2 3 4 5]
+print("ndim     :", arr.ndim)    # 1
+print("shape    :", arr.shape)   # (5,)
+print("size     :", arr.size)    # 5
+
+# Real use: list of student marks
+marks = np.array([85, 90, 78, 92, 88])
+print("\nStudent Marks:", marks)
+print("Average      :", marks.mean())   # 86.6
+print("Highest      :", marks.max())    # 92
+print("Lowest       :", marks.min())    # 78
+
+# ============================================================
+# 5. 2D ARRAY
+# ============================================================
+
+print("\n" + "=" * 60)
+print("5. 2D ARRAY")
+print("=" * 60)
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("2D Array:\n", arr)
+print("ndim  :", arr.ndim)    # 2
+print("shape :", arr.shape)   # (2, 3)  → 2 rows, 3 cols
+print("size  :", arr.size)    # 6
+
+# Access element
+print("arr[0][1] :", arr[0][1])    # 2
+print("arr[1][2] :", arr[1][2])    # 6
+
+# Real use: student marks for multiple subjects
+#           Row = Student, Column = Subject
+marks_2d = np.array([
+    [85, 90, 78],    # Student 1: Math, Science, English
+    [92, 88, 76],    # Student 2
+    [70, 95, 88]     # Student 3
+])
+print("\nClass Marks:\n", marks_2d)
+print("Student 1 Average:", marks_2d[0].mean())   # 84.33
+print("Science Column   :", marks_2d[:, 1])        # [90 88 95]
+
+# ============================================================
+# 6. 3D ARRAY
+# ============================================================
+
+print("\n" + "=" * 60)
+print("6. 3D ARRAY")
+print("=" * 60)
+
+arr = np.array([[[1, 2, 3],
+                 [4, 5, 6]],
+                [[7, 8, 9],
+                 [10, 11, 12]]])
+
+print("3D Array:\n", arr)
+print("ndim  :", arr.ndim)    # 3
+print("shape :", arr.shape)   # (2, 2, 3)
+                              # 2 layers, 2 rows, 3 cols
+
+# Access element
+print("arr[0][1][2] :", arr[0][1][2])    # 6
+print("arr[1][1][2] :", arr[1][1][2])    # 12
+
+# Real use: RGB Image
+# shape = (height, width, channels)
+# channels = R, G, B
+image = np.array([
+    [[255, 0, 0],    # Red pixel
+     [0, 255, 0]],  # Green pixel
+    [[0, 0, 255],   # Blue pixel
+     [255, 255, 0]] # Yellow pixel
+])
+print("\nRGB Image shape:", image.shape)  # (2, 2, 3)
+print("Pixel [0][0] R,G,B:", image[0][0])  # [255 0 0] = Red
+
+# ============================================================
+# 7. NDIM
+# ============================================================
+
+print("\n" + "=" * 60)
+print("7. NDIM - NUMBER OF DIMENSIONS")
+print("=" * 60)
+
+a = np.array(42)                              # 0D
+b = np.array([1, 2, 3])                      # 1D
+c = np.array([[1, 2], [3, 4]])               # 2D
+d = np.array([[[1, 2], [3, 4]],
+              [[5, 6], [7, 8]]])              # 3D
+
+print("0D ndim:", a.ndim)    # 0
+print("1D ndim:", b.ndim)    # 1
+print("2D ndim:", c.ndim)    # 2
+print("3D ndim:", d.ndim)    # 3
+
+# ndmin - create array with minimum dimensions
+arr = np.array([1, 2, 3, 4], ndmin=5)
+print("\nndmin=5 :", arr)
+print("ndim    :", arr.ndim)    # 5
+# [[[[[1 2 3 4]]]]]
+
+# ============================================================
+# 8. SHAPE
+# ============================================================
+
+print("\n" + "=" * 60)
+print("8. SHAPE")
+print("=" * 60)
+
+# shape = (rows, columns) for 2D
+# shape = (layers, rows, columns) for 3D
+
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([[1, 2, 3, 4],
+                 [5, 6, 7, 8]])
+arr3 = np.array([[[1, 2], [3, 4]],
+                 [[5, 6], [7, 8]]])
+
+print("1D shape:", arr1.shape)   # (5,)
+print("2D shape:", arr2.shape)   # (2, 4)
+print("3D shape:", arr3.shape)   # (2, 2, 2)
+
+# Understand shape values
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("\nShape:", arr.shape)         # (2, 3)
+print("Rows  :", arr.shape[0])       # 2
+print("Cols  :", arr.shape[1])       # 3
+
+# ============================================================
+# 9. SIZE
+# ============================================================
+
+print("\n" + "=" * 60)
+print("9. SIZE - TOTAL ELEMENTS")
+print("=" * 60)
+
+a = np.array([1, 2, 3, 4, 5])
+b = np.array([[1, 2, 3], [4, 5, 6]])
+c = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+
+print("1D size:", a.size)    # 5
+print("2D size:", b.size)    # 6   (2×3)
+print("3D size:", c.size)    # 8   (2×2×2)
+
+# size vs len
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+print("\nsize :", arr.size)    # 6  (total elements)
+print("len  :", len(arr))      # 2  (only rows count)
+
+# ============================================================
+# 10. DTYPE
+# ============================================================
+
+print("\n" + "=" * 60)
+print("10. DTYPE - DATA TYPE")
+print("=" * 60)
+
+a = np.array([1, 2, 3])
+b = np.array([1.5, 2.5, 3.5])
+c = np.array(["apple", "banana"])
+d = np.array([True, False])
+e = np.array([1+2j, 3+4j])
+
+print("int dtype    :", a.dtype)    # int64
+print("float dtype  :", b.dtype)    # float64
+print("string dtype :", c.dtype)    # <U6
+print("bool dtype   :", d.dtype)    # bool
+print("complex dtype:", e.dtype)    # complex128
+
+# Force specific dtype
+arr = np.array([1, 2, 3], dtype=np.float32)
+print("\nfloat32:", arr, arr.dtype)
+
+arr = np.array([1, 2, 3], dtype=np.int8)
+print("int8   :", arr, arr.dtype)
+
+# astype() - convert dtype
+arr = np.array([1.7, 2.9, 3.5])
+print("\nOriginal  :", arr, arr.dtype)          # float64
+arr_int = arr.astype(int)
+print("As int    :", arr_int, arr_int.dtype)    # int64
+
+arr = np.array([1, 0, 1, 0])
+arr_bool = arr.astype(bool)
+print("As bool   :", arr_bool)   # [True False True False]
+
+# ============================================================
+# 11. RESHAPE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("11. RESHAPE()")
+print("=" * 60)
+
+# reshape() = same data + different structure
+# Rule: total elements must remain same
+
+arr = np.array([1, 2, 3, 4, 5, 6])
+print("Original     :", arr)           # [1 2 3 4 5 6]
+print("Original shape:", arr.shape)    # (6,)
+
+# 1D to 2D
+new_arr = arr.reshape(2, 3)
+print("\nreshape(2,3):\n", new_arr)    # 2 rows, 3 cols
+print("New shape:", new_arr.shape)     # (2, 3)
+
+# 1D to 3D
+new_arr = arr.reshape(2, 1, 3)
+print("\nreshape(2,1,3):\n", new_arr)
+print("New shape:", new_arr.shape)    # (2, 1, 3)
+
+# reshape with -1 (auto calculate)
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+new_arr = arr.reshape(4, -1)   # rows=4, cols=auto(3)
+print("\nreshape(4,-1):\n", new_arr)
+print("Shape:", new_arr.shape)  # (4, 3)
+
+new_arr = arr.reshape(-1, 3)   # rows=auto(4), cols=3
+print("\nreshape(-1,3):\n", new_arr)
+print("Shape:", new_arr.shape)  # (4, 3)
+
+# reshape returns VIEW (not copy)
+arr = np.array([1, 2, 3, 4])
+new_arr = arr.reshape(2, 2)
+new_arr[0, 0] = 100
+print("\nAfter changing reshaped array:")
+print("Original :", arr)         # [100   2   3   4]
+print("Reshaped :", new_arr)
+print("Is view  :", new_arr.base is arr)   # True
+
+# ValueError example
+arr = np.array([1, 2, 3, 4, 5, 6])
+try:
+    arr.reshape(3, 3)   # 3x3=9 but array has 6 elements
+except ValueError as e:
+    print("\nValueError:", e)
+
+# ============================================================
+# 12. COPY VS VIEW
+# ============================================================
+
+print("\n" + "=" * 60)
+print("12. COPY VS VIEW")
+print("=" * 60)
+
+# COPY = independent copy (changes don't affect original)
+arr = np.array([1, 2, 3, 4, 5])
+copy_arr = arr.copy()
+arr[0] = 100
+print("After changing original:")
+print("Original :", arr)        # [100   2   3   4   5]
+print("Copy     :", copy_arr)   # [1   2   3   4   5] unchanged!
+
+# VIEW = reference (changes affect original)
+arr = np.array([1, 2, 3, 4, 5])
+view_arr = arr.view()
+arr[0] = 999
+print("\nAfter changing original:")
+print("Original :", arr)        # [999   2   3   4   5]
+print("View     :", view_arr)   # [999   2   3   4   5] changed!
+
+# Check if copy or view using .base
+arr = np.array([1, 2, 3])
+copy_arr = arr.copy()
+view_arr = arr.view()
+print("\ncopy_arr.base :", copy_arr.base)    # None (it's a copy)
+print("view_arr.base :", view_arr.base)      # [1 2 3] (original array)
+
+# When to use?
+# copy() → when you want to modify without affecting original
+# view() → when you want memory efficiency (no duplicate data)
+
+# ============================================================
+# 13. INDEXING
+# ============================================================
+
+print("\n" + "=" * 60)
+print("13. INDEXING")
+print("=" * 60)
+
+# 1D Indexing
+arr = np.array([10, 20, 30, 40, 50])
+print("arr[0]  :", arr[0])     # 10  (first)
+print("arr[2]  :", arr[2])     # 30
+print("arr[-1] :", arr[-1])    # 50  (last)
+print("arr[-2] :", arr[-2])    # 40
+
+# 2D Indexing
+arr = np.array([[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]])
+print("\n2D Array:\n", arr)
+print("arr[0][0]   :", arr[0][0])       # 1
+print("arr[1][2]   :", arr[1][2])       # 6
+print("arr[2][2]   :", arr[2][2])       # 9
+print("arr[-1][-1] :", arr[-1][-1])     # 9
+
+# 3D Indexing
+arr = np.array([[[1, 2, 3],
+                 [4, 5, 6]],
+                [[7, 8, 9],
+                 [10, 11, 12]]])
+print("\n3D Array indexing:")
+print("arr[0][0][0] :", arr[0][0][0])   # 1
+print("arr[0][1][2] :", arr[0][1][2])   # 6
+print("arr[1][1][2] :", arr[1][1][2])   # 12
+
+# ============================================================
+# 14. SLICING
+# ============================================================
+
+print("\n" + "=" * 60)
+print("14. SLICING")
+print("=" * 60)
+
+# Syntax: arr[start:end:step]
+# start = included, end = excluded
+
+arr = np.array([10, 20, 30, 40, 50, 60])
+print("Original:", arr)
+
+print("arr[1:4]   :", arr[1:4])     # [20 30 40]
+print("arr[2:]    :", arr[2:])      # [30 40 50 60]
+print("arr[:3]    :", arr[:3])      # [10 20 30]
+print("arr[::2]   :", arr[::2])     # [10 30 50] (every 2nd)
+print("arr[1::2]  :", arr[1::2])    # [20 40 60]
+print("arr[::-1]  :", arr[::-1])    # [60 50 40 30 20 10] (reverse)
+
+# 2D Slicing
+arr = np.array([[1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12]])
+print("\n2D Array:\n", arr)
+
+# All rows, column 2
+print("arr[:, 2]       :", arr[:, 2])        # [3 7 11]
+
+# Row 0-1, all columns
+print("arr[0:2, :]     :\n", arr[0:2, :])
+
+# Row 1-2, columns 1-3
+print("arr[1:3, 1:3]   :\n", arr[1:3, 1:3])
+
+# Every other column
+print("arr[:, ::2]     :\n", arr[:, ::2])
+
+# ============================================================
+# 15. ITERATING
+# ============================================================
+
+print("\n" + "=" * 60)
+print("15. ITERATING")
+print("=" * 60)
+
+# 1D Iteration
+arr = np.array([10, 20, 30])
+print("1D Iteration:")
+for x in arr:
+    print(" ", x)
+
+# 2D Iteration (iterates rows)
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("\n2D Iteration (row by row):")
+for row in arr:
+    print(" ", row)
+
+# 2D Iteration (each element)
+print("\n2D Iteration (each element):")
+for row in arr:
+    for val in row:
+        print(" ", val, end=" ")
+print()
+
+# 3D Iteration
+arr = np.array([[[1, 2], [3, 4]],
+                [[5, 6], [7, 8]]])
+print("\n3D Iteration (layer by layer):")
+for layer in arr:
+    print(" ", layer)
+
+# ============================================================
+# 16. NDITER()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("16. NDITER()")
+print("=" * 60)
+
+# nditer() = iterate ALL elements without nested loops
+arr = np.array([[[1, 2], [3, 4]],
+                [[5, 6], [7, 8]]])
+
+print("nditer() - all elements:")
+for x in np.nditer(arr):
+    print(x, end=" ")
+print()
+# Output: 1 2 3 4 5 6 7 8
+
+# nditer with step
+arr = np.array([1, 2, 3, 4, 5, 6])
+print("\nnditer with step 2:")
+for x in np.nditer(arr[::2]):
+    print(x, end=" ")
+print()
+# Output: 1 3 5
+
+# op_dtypes - convert dtype while iterating
+arr = np.array([1, 2, 3])
+print("\nnditer with op_dtypes string:")
+for x in np.nditer(arr, flags=['buffered'], op_dtypes=['S']):
+    print(x, x.dtype, end=" | ")
+print()
+# b'1' |S21  b'2' |S21  b'3' |S21
+
+# 2D nditer with step on columns
+arr = np.array([[1, 2, 3, 4],
+                [5, 6, 7, 8]])
+print("\n2D nditer skip every 2 columns:")
+for x in np.nditer(arr[:, ::2]):
+    print(x, end=" ")
+print()
+# Output: 1 3 5 7
+
+# ============================================================
+# 17. NDENUMERATE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("17. NDENUMERATE()")
+print("=" * 60)
+
+# ndenumerate = index + value together
+arr = np.array([10, 20, 30])
+print("1D ndenumerate:")
+for index, value in np.ndenumerate(arr):
+    print(f"  index={index}, value={value}")
+# index=(0,), value=10
+# index=(1,), value=20
+# index=(2,), value=30
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("\n2D ndenumerate:")
+for index, value in np.ndenumerate(arr):
+    print(f"  index={index}, value={value}")
+# index=(0, 0), value=1
+# index=(0, 1), value=2 ...
+
+# Real use: find position of max value
+arr = np.array([[10, 55, 30],
+                [40, 25, 80]])
+for idx, val in np.ndenumerate(arr):
+    if val == arr.max():
+        print(f"\nMax value {val} is at position {idx}")
+# Max value 80 is at position (1, 2)
+
+# ============================================================
+# 18. JOINING ARRAYS - CONCATENATE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("18. JOINING ARRAYS - CONCATENATE()")
+print("=" * 60)
+
+# 1D concatenate
+arr1 = np.array([1, 2, 3])
+arr2 = np.array([4, 5, 6])
+result = np.concatenate((arr1, arr2))
+print("1D concatenate:", result)    # [1 2 3 4 5 6]
+
+# 3 arrays concatenate
+arr3 = np.array([7, 8, 9])
+result = np.concatenate((arr1, arr2, arr3))
+print("3 arrays      :", result)    # [1 2 3 4 5 6 7 8 9]
+
+# 2D concatenate - axis=0 (add rows)
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+result = np.concatenate((a, b), axis=0)
+print("\n2D axis=0 (add rows):\n", result)
+# [[1 2]
+#  [3 4]
+#  [5 6]
+#  [7 8]]
+
+# 2D concatenate - axis=1 (add columns)
+result = np.concatenate((a, b), axis=1)
+print("\n2D axis=1 (add columns):\n", result)
+# [[1 2 5 6]
+#  [3 4 7 8]]
+
+# ============================================================
+# 19. STACK - HSTACK() VSTACK() DSTACK()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("19. STACK - HSTACK() VSTACK() DSTACK()")
+print("=" * 60)
+
+arr1 = np.array([1, 2, 3])
+arr2 = np.array([4, 5, 6])
+
+# hstack() - side by side (columns increase)
+result = np.hstack((arr1, arr2))
+print("hstack (horizontal):", result)    # [1 2 3 4 5 6]
+
+# vstack() - top to bottom (rows increase)
+result = np.vstack((arr1, arr2))
+print("vstack (vertical):\n", result)
+# [[1 2 3]
+#  [4 5 6]]
+
+# dstack() - depth wise (3rd dimension)
+result = np.dstack((arr1, arr2))
+print("dstack (depth):\n", result)
+# [[[1 4]
+#   [2 5]
+#   [3 6]]]
+
+# stack() - creates new axis
+result = np.stack((arr1, arr2), axis=0)
+print("\nstack axis=0:\n", result)    # [[1 2 3] [4 5 6]]
+
+result = np.stack((arr1, arr2), axis=1)
+print("stack axis=1:\n", result)
+# [[1 4]
+#  [2 5]
+#  [3 6]]
+
+print("\nSummary:")
+print("hstack → Side by side → Columns increase")
+print("vstack → Top to Bottom → Rows increase")
+print("dstack → Depth wise → 3rd dimension")
+print("stack  → New axis → ndim + 1")
+
+# ============================================================
+# 20. SPLITTING ARRAYS - ARRAY_SPLIT()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("20. SPLITTING ARRAYS - ARRAY_SPLIT()")
+print("=" * 60)
+
+arr = np.array([1, 2, 3, 4, 5, 6])
+
+# Split into 2
+result = np.array_split(arr, 2)
+print("Split into 2:", result)
+# [array([1, 2, 3]), array([4, 5, 6])]
+
+# Split into 3
+result = np.array_split(arr, 3)
+print("Split into 3:", result)
+# [array([1, 2]), array([3, 4]), array([5, 6])]
+
+# Split into unequal parts (7 elements, split into 4)
+arr = np.array([1, 2, 3, 4, 5, 6, 7])
+result = np.array_split(arr, 4)
+print("Split 7 into 4:", result)
+# [array([1, 2]), array([3, 4]), array([5, 6]), array([7])]
+
+# Access each split
+arr = np.array([1, 2, 3, 4, 5, 6])
+result = np.array_split(arr, 3)
+print("\nAccess split parts:")
+print("Part 1:", result[0])    # [1 2]
+print("Part 2:", result[1])    # [3 4]
+print("Part 3:", result[2])    # [5 6]
+
+# 2D split
+arr = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+result = np.array_split(arr, 2)
+print("\n2D split into 2:\n", result)
+
+# ============================================================
+# 21. HSPLIT() VSPLIT() DSPLIT()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("21. HSPLIT() VSPLIT() DSPLIT()")
+print("=" * 60)
+
+arr = np.array([[1, 2, 3, 4],
+                [5, 6, 7, 8]])
+print("Original:\n", arr)
+print("Shape:", arr.shape)   # (2, 4)
+
+# hsplit - split along columns
+result = np.hsplit(arr, 2)
+print("\nhsplit(2) - split columns:")
+print("Left :", result[0])
+print("Right:", result[1])
+
+# vsplit - split along rows
+result = np.vsplit(arr, 2)
+print("\nvsplit(2) - split rows:")
+print("Top   :", result[0])
+print("Bottom:", result[1])
+
+# dsplit - split along depth (3D only)
+arr3d = np.array([[[1, 2, 3, 4],
+                   [5, 6, 7, 8]]])
+print("\ndsplit - 3D split:")
+result = np.dsplit(arr3d, 2)
+print("Shape:", arr3d.shape)
+print("Part 1:\n", result[0])
+print("Part 2:\n", result[1])
+
+# ============================================================
+# 22. SEARCHING - WHERE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("22. SEARCHING - WHERE()")
+print("=" * 60)
+
+arr = np.array([1, 2, 3, 4, 5, 4, 3])
+
+# Find specific value
+x = np.where(arr == 4)
+print("Where arr==4 :", x)       # (array([3, 5]),)
+print("Indexes only :", x[0])    # [3 5]
+
+# Find even numbers
+x = np.where(arr % 2 == 0)
+print("\nEven number indexes:", x[0])   # [1 3 5]
+print("Even numbers       :", arr[x])  # [2 4 4]
+
+# Find odd numbers
+x = np.where(arr % 2 == 1)
+print("\nOdd number indexes:", x[0])   # [0 2 4 6]
+print("Odd numbers       :", arr[x])  # [1 3 5 3]
+
+# where() with condition - replace values
+arr = np.array([10, 25, 30, 15, 40])
+result = np.where(arr > 20, "High", "Low")
+print("\nwhere() replace:")
+print("Original:", arr)
+print("Result  :", result)   # ['Low' 'High' 'High' 'Low' 'High']
+
+# 2D where
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+rows, cols = np.where(arr > 3)
+print("\n2D where arr>3:")
+print("Row indexes:", rows)    # [1 1 1]
+print("Col indexes:", cols)    # [0 1 2]
+print("Values     :", arr[rows, cols])  # [4 5 6]
+
+# ============================================================
+# 23. SEARCHSORTED()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("23. SEARCHSORTED()")
+print("=" * 60)
+
+# searchsorted = find index where value SHOULD be inserted
+# Array must be SORTED
+
+arr = np.array([6, 7, 8, 9])
+print("Array:", arr)
+
+# Where to insert 7?
+x = np.searchsorted(arr, 7)
+print("Insert 7 at index:", x)    # 1
+
+# side='right' - insert after existing value
+x = np.searchsorted(arr, 7, side='right')
+print("Insert 7 (right) :", x)    # 2
+
+# Nearest match
+x = np.searchsorted(arr, 7.5)
+print("Insert 7.5 at   :", x)    # 2 (between 7 and 8)
+
+# Multiple values
+arr = np.array([1, 3, 5, 7])
+x = np.searchsorted(arr, [2, 4, 6])
+print("\nInsert [2,4,6]:", x)    # [1 2 3]
+
+# Real use: find rank of a score
+scores = np.array([50, 60, 70, 80, 90])
+my_score = 75
+rank = np.searchsorted(scores, my_score)
+print(f"\nScore {my_score} rank position: {rank}")   # 4
+
+# ============================================================
+# 24. SORTING
+# ============================================================
+
+print("\n" + "=" * 60)
+print("24. SORTING")
+print("=" * 60)
+
+# Sort integers
+arr = np.array([3, 1, 4, 1, 5, 9, 2, 6])
+print("Original :", arr)
+print("Sorted   :", np.sort(arr))     # [1 1 2 3 4 5 6 9]
+
+# Sort descending
+print("Descending:", np.sort(arr)[::-1])   # [9 6 5 4 3 2 1 1]
+
+# Sort strings
+arr = np.array(['banana', 'apple', 'cherry', 'date'])
+print("\nSort strings:", np.sort(arr))
+# ['apple' 'banana' 'cherry' 'date']
+
+# Sort booleans
+arr = np.array([True, False, True, False])
+print("Sort bools:", np.sort(arr))    # [False False True True]
+
+# Sort 2D array (each row sorted separately)
+arr = np.array([[3, 1, 4],
+                [9, 2, 6]])
+print("\nSort 2D:\n", np.sort(arr))
+# [[1 3 4]
+#  [2 6 9]]
+
+# argsort() - returns indexes that would sort the array
+arr = np.array([30, 10, 20, 50, 40])
+print("\nargsort:", np.argsort(arr))   # [1 2 0 4 3]
+print("Sorted :", arr[np.argsort(arr)])   # [10 20 30 40 50]
+
+# ============================================================
+# 25. FILTER ARRAYS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("25. FILTER ARRAYS")
+print("=" * 60)
+
+arr = np.array([41, 42, 43, 44, 45])
+
+# Method 1: Manual boolean list
+filter_arr = []
+for element in arr:
+    if element > 42:
+        filter_arr.append(True)
+    else:
+        filter_arr.append(False)
+result = arr[filter_arr]
+print("Manual filter >42:", result)    # [43 44 45]
+
+# Method 2: Direct filter (Better way)
+filter_arr = arr > 42
+result = arr[filter_arr]
+print("Direct filter >42:", result)    # [43 44 45]
+
+# Even numbers filter
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8])
+even = arr[arr % 2 == 0]
+print("\nEven numbers:", even)    # [2 4 6 8]
+
+odd = arr[arr % 2 != 0]
+print("Odd numbers :", odd)      # [1 3 5 7]
+
+# Multiple conditions
+arr = np.array([10, 20, 30, 40, 50, 60])
+result = arr[(arr > 20) & (arr < 50)]
+print("\n20 < arr < 50:", result)   # [30 40]
+
+# String filter
+arr = np.array(["apple", "banana", "apricot", "cherry"])
+result = arr[np.char.startswith(arr, "a")]
+print("Starts with 'a':", result)   # ['apple' 'apricot']
+
+# ============================================================
+# 26. RANDOM NUMBERS - RANDINT() RAND()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("26. RANDOM NUMBERS - RANDINT() RAND()")
+print("=" * 60)
+
+from numpy import random
+
+# Random integer 0 to 99
+x = random.randint(100)
+print("Random int (0-99):", x)
+
+# Random integer in range
+x = random.randint(10, 50)
+print("Random int (10-50):", x)
+
+# 1D array of random integers
+x = random.randint(100, size=5)
+print("1D random ints:", x)
+
+# 2D array of random integers
+x = random.randint(100, size=(3, 5))
+print("2D random ints:\n", x)
+
+# Random float (0 to 1)
+x = random.rand()
+print("\nRandom float:", x)
+
+# 1D array of random floats
+x = random.rand(5)
+print("1D random floats:", x)
+
+# 2D array of random floats
+x = random.rand(3, 4)
+print("2D random floats:\n", x)
+
+# Seed - for reproducible results
+random.seed(42)
+print("\nWith seed(42):", random.randint(100, size=5))
+random.seed(42)
+print("Same seed again:", random.randint(100, size=5))  # same output!
+
+# ============================================================
+# 27. CHOICE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("27. CHOICE()")
+print("=" * 60)
+
+from numpy import random
+
+# Random choice from array
+x = random.choice([3, 5, 7, 9])
+print("Random choice:", x)
+
+# 2D array of choices
+x = random.choice([3, 5, 7, 9], size=(3, 5))
+print("2D choices:\n", x)
+
+# With probability
+# p values must sum to 1.0
+x = random.choice([10, 20, 30, 40], p=[0.1, 0.3, 0.5, 0.1], size=10)
+print("\nWeighted choice:", x)
+# 30 appears most often (50% chance)
+
+# Real use: lottery simulation
+lottery_numbers = np.array(range(1, 50))
+picked = random.choice(lottery_numbers, size=6, replace=False)
+print("\nLottery numbers:", np.sort(picked))
+
+# ============================================================
+# 28. SHUFFLE() PERMUTATION()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("28. SHUFFLE() PERMUTATION()")
+print("=" * 60)
+
+from numpy import random
+
+# shuffle() - modifies original array
+arr = np.array([1, 2, 3, 4, 5])
+print("Before shuffle:", arr)
+random.shuffle(arr)
+print("After shuffle :", arr)   # original changed
+
+# permutation() - returns new array (original unchanged)
+arr = np.array([1, 2, 3, 4, 5])
+new_arr = random.permutation(arr)
+print("\nOriginal         :", arr)       # unchanged
+print("permutation()    :", new_arr)    # shuffled copy
+
+# Difference:
+# shuffle()     → modifies IN PLACE
+# permutation() → returns NEW array, original safe
+
+# Real use: shuffle cards
+cards = np.array(['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'])
+random.shuffle(cards)
+print("\nShuffled cards:", cards)
+
+# ============================================================
+# 29. RANDOM DISTRIBUTIONS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("29. RANDOM DISTRIBUTIONS")
+print("=" * 60)
+
+from numpy import random
+
+print("Types of Distributions:")
+print("Normal     → Bell curve (most values near center)")
+print("Binomial   → Yes/No experiments (pass/fail)")
+print("Poisson    → Events in time (calls per hour)")
+print("Uniform    → Equal probability (dice roll)")
+print("Exponential→ Time between events")
+
+# ============================================================
+# 30. NORMAL DISTRIBUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("30. NORMAL DISTRIBUTION")
+print("=" * 60)
+
+from numpy import random
+
+# normal(loc=mean, scale=std, size)
+data = random.normal(loc=0, scale=1, size=10)
+print("Normal (mean=0, std=1):", data)
+
+# Real example: Heights of students
+heights = random.normal(loc=170, scale=10, size=100)
+print("\nStudent Heights sample:", heights[:5])
+print("Mean height:", heights.mean().round(2))
+print("Std dev    :", heights.std().round(2))
+
+# ============================================================
+# 31. BINOMIAL DISTRIBUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("31. BINOMIAL DISTRIBUTION")
+print("=" * 60)
+
+from numpy import random
+
+# binomial(n=trials, p=probability, size)
+# Coin flip 10 times, how many heads?
+data = random.binomial(n=10, p=0.5, size=20)
+print("Binomial (10 flips):", data)
+
+# Real example: Pass/Fail test
+# 100 students, each has 70% chance to pass
+results = random.binomial(n=1, p=0.7, size=100)
+passed = results.sum()
+print(f"\nOut of 100 students: {passed} passed, {100-passed} failed")
+
+# ============================================================
+# 32. POISSON DISTRIBUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("32. POISSON DISTRIBUTION")
+print("=" * 60)
+
+from numpy import random
+
+# poisson(lam=average_events, size)
+# lam = average events per interval
+data = random.poisson(lam=5, size=20)
+print("Poisson (avg 5 events):", data)
+
+# Real example: customer calls per hour
+# Call center gets avg 10 calls/hour
+calls = random.poisson(lam=10, size=24)   # 24 hours
+print(f"\nCalls per hour (24hrs): {calls}")
+print(f"Total calls today: {calls.sum()}")
+print(f"Busiest hour    : {calls.max()} calls")
+
+# ============================================================
+# 33. UNIFORM DISTRIBUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("33. UNIFORM DISTRIBUTION")
+print("=" * 60)
+
+from numpy import random
+
+# uniform(low, high, size)
+# All values equally likely
+data = random.uniform(0, 10, size=10)
+print("Uniform (0-10):", data.round(2))
+
+# Real example: dice roll simulation
+dice = random.randint(1, 7, size=1000)
+for i in range(1, 7):
+    count = (dice == i).sum()
+    print(f"  Face {i}: {count} times ({count/10:.1f}%)")
+
+# ============================================================
+# 34. LOGISTIC DISTRIBUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("34. LOGISTIC DISTRIBUTION")
+print("=" * 60)
+
+from numpy import random
+
+# logistic(loc=mean, scale, size)
+# Similar to normal but heavier tails
+data = random.logistic(loc=0, scale=1, size=10)
+print("Logistic distribution:", data.round(3))
+
+# Difference from Normal:
+# Normal   → thin tails
+# Logistic → heavier tails (more extreme values)
+
+# ============================================================
+# 35. EXPONENTIAL DISTRIBUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("35. EXPONENTIAL DISTRIBUTION")
+print("=" * 60)
+
+from numpy import random
+
+# exponential(scale=1/lambda, size)
+# Time between events
+data = random.exponential(scale=2, size=10)
+print("Exponential:", data.round(3))
+
+# Real example: time between customer arrivals (in minutes)
+arrival_gaps = random.exponential(scale=5, size=20)  # avg 5 min gap
+print(f"\nTime gaps between customers: {arrival_gaps.round(1)}")
+print(f"Average gap: {arrival_gaps.mean():.2f} minutes")
+
+# ============================================================
+# 36. MATHEMATICAL OPERATIONS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("36. MATHEMATICAL OPERATIONS")
+print("=" * 60)
+
+arr = np.array([1, 2, 3, 4, 5])
+
+# Basic operations
+print("arr        :", arr)
+print("sum        :", np.sum(arr))        # 15
+print("mean       :", np.mean(arr))       # 3.0
+print("max        :", np.max(arr))        # 5
+print("min        :", np.min(arr))        # 1
+print("std dev    :", np.std(arr))        # 1.41
+print("variance   :", np.var(arr))        # 2.0
+print("median     :", np.median(arr))     # 3.0
+
+# Math functions
+arr = np.array([1, 4, 9, 16, 25])
+print("\nsqrt   :", np.sqrt(arr))         # [1. 2. 3. 4. 5.]
+print("abs    :", np.abs([-1,-2,3,-4]))  # [1 2 3 4]
+print("power  :", np.power(arr, 2))      # [1 16 81 256 625]
+print("log    :", np.log(arr).round(2))  # natural log
+print("log10  :", np.log10(arr))         # base 10
+print("exp    :", np.exp([1, 2, 3]).round(2))  # e^x
+
+# Arithmetic between arrays
+a = np.array([10, 20, 30])
+b = np.array([1, 2, 3])
+print("\na + b :", a + b)    # [11 22 33]
+print("a - b :", a - b)    # [9 18 27]
+print("a * b :", a * b)    # [10 40 90]
+print("a / b :", a / b)    # [10. 10. 10.]
+print("a % b :", a % b)    # [0 0 0]
+
+# 2D sum along axis
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("\n2D sum (all)    :", np.sum(arr))         # 21
+print("2D sum (axis=0):", np.sum(arr, axis=0))   # [5 7 9] (col sum)
+print("2D sum (axis=1):", np.sum(arr, axis=1))   # [6 15]  (row sum)
+
+# ============================================================
+# 37. MATRIX OPERATIONS - DOT()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("37. MATRIX OPERATIONS - DOT()")
+print("=" * 60)
+
+# dot() = Matrix multiplication
+a = np.array([[1, 2],
+              [3, 4]])
+b = np.array([[5, 6],
+              [7, 8]])
+
+print("Matrix A:\n", a)
+print("Matrix B:\n", b)
+
+result = np.dot(a, b)
+print("A dot B:\n", result)
+# [[1*5+2*7  1*6+2*8]   =   [[19 22]
+#  [3*5+4*7  3*6+4*8]]       [43 50]]
+
+# matmul - same as dot for 2D
+result2 = np.matmul(a, b)
+print("matmul:\n", result2)    # same result
+
+# transpose
+print("\nTranspose of A:\n", a.T)
+# [[1 3]
+#  [2 4]]
+
+# determinant
+det = np.linalg.det(a)
+print("\nDeterminant of A:", det)   # -2.0
+
+# inverse
+inv = np.linalg.inv(a)
+print("Inverse of A:\n", inv)
+
+# Real use: Linear algebra in ML
+# w = (X^T X)^-1 X^T y  (Linear Regression formula)
+
+# ============================================================
+# 38. BROADCASTING
+# ============================================================
+
+print("\n" + "=" * 60)
+print("38. BROADCASTING")
+print("=" * 60)
+
+# Broadcasting = operations on arrays with different shapes
+
+# Scalar + Array
+arr = np.array([1, 2, 3, 4, 5])
+print("arr + 10  :", arr + 10)    # [11 12 13 14 15]
+print("arr * 2   :", arr * 2)     # [2 4 6 8 10]
+print("arr ** 2  :", arr ** 2)    # [1 4 9 16 25]
+
+# 2D + 1D broadcasting
+a = np.array([[1, 2, 3],
+              [4, 5, 6]])
+b = np.array([10, 20, 30])
+
+result = a + b
+print("\n2D + 1D broadcasting:\n", result)
+# [[11 22 33]
+#  [14 25 36]]
+
+# Real use: normalize data
+data = np.array([[100, 200, 300],
+                 [400, 500, 600]])
+col_mean = data.mean(axis=0)
+normalized = data - col_mean
+print("\nNormalized:\n", normalized)
+
+# ============================================================
+# 39. STRING DATATYPE ARRAYS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("39. STRING DATATYPE ARRAYS")
+print("=" * 60)
+
+arr = np.array(["apple", "banana", "cherry"])
+print("String array:", arr)
+print("dtype       :", arr.dtype)    # <U6
+
+# String operations using np.char
+print("\nupper      :", np.char.upper(arr))
+print("lower      :", np.char.lower(arr))
+print("title      :", np.char.title(arr))
+print("len        :", np.char.str_len(arr))
+
+# startswith, endswith
+print("startswith 'a':", np.char.startswith(arr, 'a'))
+print("endswith 'e'  :", np.char.endswith(arr, 'e'))
+
+# contains (find)
+print("contains 'an' :", np.char.find(arr, 'an') >= 0)
+
+# replace
+print("replace      :", np.char.replace(arr, 'a', '@'))
+
+# split
+words = np.array(["hello world", "foo bar"])
+print("\nsplit        :", np.char.split(words))
+
+# join
+print("join         :", np.char.join('-', arr))
+
+# ============================================================
+# 40. BOOLEAN ARRAYS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("40. BOOLEAN ARRAYS")
+print("=" * 60)
+
+arr = np.array([1, 5, 3, 8, 2, 7])
+
+# Create boolean array
+bool_arr = arr > 4
+print("Original  :", arr)
+print("arr > 4   :", bool_arr)   # [F T F T F T]
+
+# Use boolean array to filter
+print("Filtered  :", arr[bool_arr])   # [5 8 7]
+
+# Count True values
+print("Count > 4 :", bool_arr.sum())    # 3
+
+# any() and all()
+print("any > 4   :", bool_arr.any())    # True (at least one)
+print("all > 4   :", bool_arr.all())    # False (not all)
+
+# Combine conditions
+a = arr > 3
+b = arr < 8
+print("\n3 < arr < 8  :", arr[a & b])   # [5 7]
+print("arr<3 or >6  :", arr[~(a & b)])  # [1 3 8 2]
+
+# ============================================================
+# 41. ZEROS() ONES() FULL()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("41. ZEROS() ONES() FULL()")
+print("=" * 60)
+
+# zeros - all zeros
+a = np.zeros(5)
+print("zeros(5)       :", a)           # [0. 0. 0. 0. 0.]
+
+a = np.zeros((3, 4))
+print("zeros(3,4):\n", a)
+
+# ones - all ones
+b = np.ones(4)
+print("ones(4)        :", b)           # [1. 1. 1. 1.]
+
+b = np.ones((2, 3), dtype=int)
+print("ones(2,3) int:\n", b)
+
+# full - fill with value
+c = np.full(5, 7)
+print("full(5, 7)     :", c)    # [7 7 7 7 7]
+
+c = np.full((3, 3), 99)
+print("full(3,3, 99):\n", c)
+
+# empty - random values (uninitialized)
+d = np.empty((2, 3))
+print("empty (random):\n", d)
+
+# Real use:
+# zeros() → initialize weight matrix in Neural Network
+# ones()  → create mask for image processing
+# full()  → fill default values
+
+# ============================================================
+# 42. ARANGE() LINSPACE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("42. ARANGE() LINSPACE()")
+print("=" * 60)
+
+# arange(start, stop, step) - like range()
+arr = np.arange(10)
+print("arange(10)         :", arr)    # [0 1 2 3 4 5 6 7 8 9]
+
+arr = np.arange(1, 10)
+print("arange(1,10)       :", arr)    # [1 2 3 4 5 6 7 8 9]
+
+arr = np.arange(0, 10, 2)
+print("arange(0,10,2)     :", arr)    # [0 2 4 6 8]
+
+arr = np.arange(0, 1, 0.1)
+print("arange(0,1,0.1)    :", arr.round(1))
+
+# linspace(start, stop, num) - evenly spaced
+arr = np.linspace(0, 10, 5)
+print("\nlinspace(0,10,5)   :", arr)    # [0. 2.5 5. 7.5 10.]
+
+arr = np.linspace(0, 1, 11)
+print("linspace(0,1,11)   :", arr)
+
+# Difference:
+# arange  → specify STEP SIZE
+# linspace → specify NUMBER OF POINTS
+
+# Real use: ML learning rate schedules
+lr_schedule = np.linspace(0.01, 0.0001, 100)
+print("\nLearning rate first 5:", lr_schedule[:5])
+
+# ============================================================
+# 43. EYE() - IDENTITY MATRIX
+# ============================================================
+
+print("\n" + "=" * 60)
+print("43. EYE() - IDENTITY MATRIX")
+print("=" * 60)
+
+# Identity matrix - 1s on diagonal, 0s elsewhere
+identity = np.eye(3)
+print("3x3 Identity:\n", identity)
+# [[1. 0. 0.]
+#  [0. 1. 0.]
+#  [0. 0. 1.]]
+
+identity = np.eye(4, dtype=int)
+print("4x4 Identity int:\n", identity)
+
+# Real use: A * I = A (any matrix * identity = same matrix)
+a = np.array([[1, 2], [3, 4]])
+i = np.eye(2)
+print("\nA * I:\n", np.dot(a, i))   # same as A
+
+# ============================================================
+# 44. STATISTICAL FUNCTIONS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("44. STATISTICAL FUNCTIONS")
+print("=" * 60)
+
+data = np.array([23, 45, 12, 67, 34, 89, 56, 11, 78, 90])
+
+print("Data :", data)
+print("mean    :", np.mean(data))            # average
+print("median  :", np.median(data))          # middle value
+print("std     :", np.std(data).round(2))    # standard deviation
+print("var     :", np.var(data).round(2))    # variance
+print("min     :", np.min(data))
+print("max     :", np.max(data))
+print("range   :", np.ptp(data))             # max - min
+print("sum     :", np.sum(data))
+print("cumsum  :", np.cumsum(data))          # running total
+
+# percentile
+print("\n25th percentile:", np.percentile(data, 25))
+print("50th percentile:", np.percentile(data, 50))
+print("75th percentile:", np.percentile(data, 75))
+
+# corrcoef - correlation
+a = np.array([1, 2, 3, 4, 5])
+b = np.array([5, 4, 3, 2, 1])
+corr = np.corrcoef(a, b)
+print("\nCorrelation matrix:\n", corr)
+print("Correlation value:", corr[0][1])   # -1.0 (perfect negative)
+
+# ============================================================
+# 45. WHERE() - CONDITIONAL REPLACE
+# ============================================================
+
+print("\n" + "=" * 60)
+print("45. WHERE() - CONDITIONAL REPLACE")
+print("=" * 60)
+
+# np.where(condition, value_if_true, value_if_false)
+arr = np.array([10, 25, 5, 40, 15, 30])
+
+# Replace values > 20 with 'HIGH', else 'LOW'
+result = np.where(arr > 20, "HIGH", "LOW")
+print("Original:", arr)
+print("Result  :", result)
+# ['LOW' 'HIGH' 'LOW' 'HIGH' 'LOW' 'HIGH']
+
+# Replace negative with 0
+arr = np.array([-1, 2, -3, 4, -5, 6])
+result = np.where(arr > 0, arr, 0)
+print("\nNegatives to 0:", result)   # [0 2 0 4 0 6]
+
+# Categorize salaries
+salaries = np.array([25000, 55000, 80000, 35000, 70000])
+grade = np.where(salaries >= 60000, "Senior",
+        np.where(salaries >= 40000, "Mid",
+                 "Junior"))
+print("\nSalary grades:", grade)
+
+# ============================================================
+# 46. UNIQUE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("46. UNIQUE()")
+print("=" * 60)
+
+arr = np.array([3, 1, 4, 1, 5, 9, 2, 6, 5, 3])
+print("Original     :", arr)
+
+unique = np.unique(arr)
+print("Unique values:", unique)    # [1 2 3 4 5 6 9]
+
+# Get counts too
+unique, counts = np.unique(arr, return_counts=True)
+print("\nValue : Count")
+for v, c in zip(unique, counts):
+    print(f"  {v}   : {c}")
+
+# Get indexes of first occurrence
+unique, idx = np.unique(arr, return_index=True)
+print("\nFirst occurrence indexes:", idx)
+
+# 2D unique
+arr2d = np.array([[1, 2], [3, 2], [1, 4]])
+print("\n2D unique:", np.unique(arr2d))   # flattened unique
+
+# ============================================================
+# 47. FLATTEN() RAVEL()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("47. FLATTEN() RAVEL()")
+print("=" * 60)
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("Original:\n", arr)
+
+# flatten() - returns COPY (always)
+flat = arr.flatten()
+print("\nflatten:", flat)     # [1 2 3 4 5 6]
+flat[0] = 999
+print("After changing flat[0]=999:")
+print("Original unchanged:", arr[0][0])   # still 1
+
+# ravel() - returns VIEW (if possible)
+rav = arr.ravel()
+print("\nravel  :", rav)      # [1 2 3 4 5 6]
+rav[0] = 999
+print("After changing ravel[0]=999:")
+print("Original changed:", arr[0][0])     # 999!
+
+# Difference:
+# flatten() → always COPY  → safe, more memory
+# ravel()   → VIEW if possible → fast, less memory
+
+# ============================================================
+# 48. TRANSPOSE()
+# ============================================================
+
+print("\n" + "=" * 60)
+print("48. TRANSPOSE()")
+print("=" * 60)
+
+# Transpose = rows become columns, columns become rows
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print("Original shape:", arr.shape)    # (2, 3)
+print("Original:\n", arr)
+
+# Using .T
+transposed = arr.T
+print("\nTransposed shape:", transposed.shape)  # (3, 2)
+print("Transposed:\n", transposed)
+
+# Using np.transpose()
+transposed2 = np.transpose(arr)
+print("\nnp.transpose:\n", transposed2)
+
+# 3D transpose
+arr3d = np.array([[[1, 2], [3, 4]],
+                  [[5, 6], [7, 8]]])
+print("\n3D shape:", arr3d.shape)          # (2, 2, 2)
+print("3D transposed:", arr3d.T.shape)    # (2, 2, 2)
+
+# ============================================================
+# 49. REAL WORLD EXAMPLES
+# ============================================================
+
+print("\n" + "=" * 60)
+print("49. REAL WORLD EXAMPLES")
+print("=" * 60)
+
+# --- Example 1: Student Grade Analysis ---
+print("Example 1: Student Grade Analysis")
+student_marks = np.array([
+    [85, 90, 78, 92],   # Student 1: Math, Science, English, Hindi
+    [70, 65, 88, 75],   # Student 2
+    [95, 88, 92, 98],   # Student 3
+    [60, 72, 55, 68]    # Student 4
+])
+print("Marks:\n", student_marks)
+print("Student averages:", student_marks.mean(axis=1).round(1))
+print("Subject averages:", student_marks.mean(axis=0).round(1))
+print("Top scorer      : Student", student_marks.mean(axis=1).argmax() + 1)
+print("Hardest subject : Subject", student_marks.mean(axis=0).argmin() + 1)
+
+# --- Example 2: Sales Analysis ---
+print("\nExample 2: Monthly Sales Analysis")
+monthly_sales = np.array([45000, 52000, 48000, 61000, 55000,
+                          70000, 68000, 72000, 59000, 63000,
+                          75000, 80000])
+months = np.array(['Jan','Feb','Mar','Apr','May','Jun',
+                   'Jul','Aug','Sep','Oct','Nov','Dec'])
+
+print("Total Sales  :", monthly_sales.sum())
+print("Avg Sales    :", monthly_sales.mean().round(0))
+print("Best Month   :", months[monthly_sales.argmax()])
+print("Worst Month  :", months[monthly_sales.argmin()])
+print("Above 60k    :", months[monthly_sales > 60000])
+
+# --- Example 3: Image Processing (Grayscale) ---
+print("\nExample 3: Image as NumPy Array")
+# 4x4 grayscale image (0=black, 255=white)
+image = np.array([
+    [0,   50,  100, 150],
+    [200, 225, 180, 120],
+    [80,  60,  40,  20],
+    [255, 230, 200, 170]
+])
+print("Image shape  :", image.shape)
+print("Brightness   :", image.mean().round(1))
+print("Darkest px   :", image.min())
+print("Brightest px :", image.max())
+
+# Threshold: pixels above 128 = white(255), below = black(0)
+binary_image = np.where(image > 128, 255, 0)
+print("Binary image:\n", binary_image)
+
+# ============================================================
+# 50. INTERVIEW QUESTIONS
+# ============================================================
+
+print("\n" + "=" * 60)
+print("50. INTERVIEW QUESTIONS")
+print("=" * 60)
+
+print("""
+Q1: What is NumPy and why is it faster than Python lists?
+A:  NumPy is Numerical Python library. It's faster because:
+    - Stores data in contiguous memory (C arrays internally)
+    - Operations done in compiled C code (no Python overhead)
+    - Vectorized operations (no loops needed)
+    - Fixed data type = no type checking overhead
+
+Q2: Difference between copy() and view()?
+A:  copy() → independent copy, changes don't affect original
+    view() → reference to original, changes affect original
+    Check: arr.base is None → copy. arr.base is original → view
+
+Q3: What is broadcasting?
+A:  Broadcasting allows operations between arrays of different
+    shapes without explicit loops.
+    Example: np.array([1,2,3]) + 10 → [11, 12, 13]
+    NumPy automatically "broadcasts" scalar 10 to [10,10,10]
+
+Q4: Difference between reshape() and resize()?
+A:  reshape() → returns new array, doesn't change original
+    resize()  → changes original array IN PLACE
+
+Q5: What is ndim, shape, size, dtype?
+A:  ndim  → number of dimensions (0D=0, 1D=1, 2D=2)
+    shape → (rows, cols) tuple
+    size  → total number of elements
+    dtype → data type (int64, float64, bool, etc.)
+
+Q6: Difference between np.where() and filter?
+A:  filter  → just selects elements matching condition
+    np.where → can SELECT and REPLACE at same time
+    np.where(arr > 0, arr, 0)  # replace negatives with 0
+
+Q7: What is vectorization?
+A:  Performing operations on entire array at once without loops
+    arr * 2  → all elements multiplied by 2 at once (fast)
+    vs [x*2 for x in arr]  → loop (slow)
+
+Q8: Difference between flatten() and ravel()?
+A:  flatten() → always returns COPY (safe)
+    ravel()   → returns VIEW if possible (fast, less memory)
+
+Q9: What is axis in NumPy?
+A:  axis=0 → operates along rows (down)
+    axis=1 → operates along columns (across)
+    np.sum(arr, axis=0) → sum of each column
+    np.sum(arr, axis=1) → sum of each row
+
+Q10: How to find indexes of maximum/minimum values?
+A:  arr.argmax() → index of maximum value
+    arr.argmin() → index of minimum value
+    np.unravel_index(arr.argmax(), arr.shape)  → 2D index
+
+Q11: Difference between concatenate() and stack()?
+A:  concatenate → joins along EXISTING axis (no new dimension)
+    stack       → joins along NEW axis (adds dimension)
+
+Q12: What is np.dot() used for?
+A:  Matrix multiplication. Used in:
+    - Linear Algebra
+    - Neural Network forward pass
+    - Computing weighted sums
+    dot(a,b) ≠ a*b (element-wise)
+    dot(a,b) = true matrix multiplication
+
+Q13: How to generate reproducible random numbers?
+A:  Use np.random.seed(number) before generating
+    Same seed = same random numbers every time
+    Useful for ML experiments to get consistent results
+
+Q14: Difference between nditer() and regular for loop?
+A:  Regular for loop on 2D → gives rows (need nested loop)
+    nditer()              → gives individual elements directly
+    nditer() is more memory efficient for large arrays
+
+Q15: When to use NumPy vs Pandas?
+A:  NumPy  → numbers, math, arrays, ML/AI, image processing
+    Pandas → tables, CSV files, data analysis, mixed types
+    Pandas is built ON TOP of NumPy
+""")
+
+print("=" * 60)
+print("NUMPY COMPLETE NOTES - DONE!")
+print("=" * 60)
