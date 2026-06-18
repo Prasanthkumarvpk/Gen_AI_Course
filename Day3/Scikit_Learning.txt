@@ -138,3 +138,14 @@ Group 1 = Normal Customers
 Group 2 = Premium Customers
 
 Idi Clustering.
+
+
+Train-Test Split
+   ↓
+Choose Algorithm
+   ↓
+Train Model
+   ↓
+Predict
+   ↓
+Evaluate

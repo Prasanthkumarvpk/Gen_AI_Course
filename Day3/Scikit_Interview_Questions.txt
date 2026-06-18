@@ -1,0 +1,26 @@
+Q: What is train_test_split()?
+
+Answer: It is a Scikit-Learn function used to split a dataset into training and testing sets. 
+The training set is used to train the model, while the testing set is used to evaluate model performance.
+
+Q: Why use random_state?
+
+Answer: random_state ensures reproducible results by generating the same train-test split every time the code is executed.
+
+Features ==> Inputs
+Target ==> Output
+
+Q: Can Pandas Series and DataFrame store only numerical data?
+
+A: No. Pandas Series and DataFrames can store numerical, text, categorical, boolean, and datetime data. 
+   They are general-purpose data structures for data analysis.
+
+Q: Can Machine Learning algorithms use all these data types directly?
+
+A: No. Most ML algorithms require numerical input, so categorical and 
+   text data must be converted into numerical form using encoding techniques.
+
+Q: MAE = 10. Is the model good or bad?
+
+A: We cannot determine that from MAE alone. MAE must be interpreted relative to the scale of the target variable. 
+   An MAE of 10 may be excellent for house prices but poor for exam scores out of 100.
