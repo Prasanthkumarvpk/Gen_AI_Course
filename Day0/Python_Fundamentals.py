@@ -124,7 +124,7 @@ print(result.upper())
 print(result.title())
 print(len(result))
 
-# A List is a collection of multiple values stored in a single variable.
+# A List : [] is a collection of multiple values stored in a single variable.
 
 # without List : 
 student1 = "Raj"
@@ -197,6 +197,199 @@ numbers = [10, 20, 30, 40, 50, 60]
 print(numbers[:3])
 print(numbers[-2:])
 print(numbers[1:4])
+
+cart = ["Laptop", "Mouse", "Keyboard"]
+cart.append("Monitor")
+cart[1] = "Gaming Mouse"
+cart.remove("Keyboard")
+print(cart[:2])
+print(cart)
+print(len(cart))
+
+# Tuples : ()
+
+employees = ("Raj", "Ram", "Ravi")
+print(employees[0])
+print(employees[0])  # TypeError --> Tuple is Immutable
+
+countries = ("India", "USA", "Japan", "Australia")
+print(countries[0])
+print(countries[-1])
+print(len(countries))
+
+# Tuple Methods : append(), remove(), pop(), insert()
+
+numbers = (10, 20, 10, 30)
+print(numbers.count(10)) # 2
+
+numbers = (10, 20, 30)
+print(numbers.index(20)) # 1
+
+employee_ids = (
+    101,
+    102,
+    103,
+    104,
+    101
+)
+print(employee_ids.count(101))
+print(employee_ids.index(103))
+
+# Sets : A Set is a collection of "unique values".
+    # No Duplicates 
+    # Unordered 
+    # Mutable
+
+numbers = {10, 20, 30, 10, 20}
+print(numbers) # {10, 20, 30}
+
+cities = {
+    "Vizag",
+    "Hyderabad",
+    "Vizag",
+    "Chennai",
+    "Hyderabad"
+}
+print(cities)
+print(len(cities))
+
+skills = {"Python", "React", "MongoDB"}
+skills.add("NodeJS")
+skills.remove("React")
+print(skills)
+print(len(skills))
+
+# Dictionaries : Key-Value Pair [JSON, JS Object, MongoDB Documents]
+employee = {
+    "name": "Prasanth",
+    "age": 26,
+    "salary": 50000
+}
+print(employee["name"])
+print(len(employee))
+
+student = {
+    "name": "Raj",
+    "roll_no": 101,
+    "marks": 89
+}
+print(student["name"])
+print(student["roll_no"])
+print(student["marks"])
+print(len(student))
+
+#updating dictionary
+
+student["marks"] = 95
+print(student)
+
+# Add New Key-Value Pair :
+student["grade"] = "A"
+print(student)
+
+# Remove Key-Value Pair :
+del student["marks"]
+print(student)
+
+#using get() :
+
+student.get("city") # None
+
+employee = {
+    "name": "Prasanth",
+    "age": 26,
+    "salary": 50000
+}
+employee["salary"] = 60000
+employee["Department"] = "IT"
+del employee["age"]
+print(employee)
+
+# keys() and values() :
+print(employee.keys())
+print(employee.values())
+
+# items() : Returns both key and value.
+print(employee.items())
+
+product = {
+    "name": "Laptop",
+    "price": 55000,
+    "stock": 10
+}
+print(product.keys())
+print(product.values())
+print(product.items())
+
+# for loop :
+for i in range(5):
+    print("Hello")
+
+employees = ["Raj", "Ram", "Prasanth"]
+for employee in employees:
+    print(employee)
+
+marks = [80, 90, 70, 95]
+for mark in marks:
+    print(mark)
+
+emails = [
+    "a@gmail.com",
+    "b@gmail.com",
+    "c@gmail.com"
+]
+
+for email in emails:
+    print("Sending email to", email)
+
+for i in range(5):   # range(start=0, stop=5)
+    print(i)  # Output : 0 1 2 3 4
+
+for i in range(1,6):
+    print(i)
+
+for i in range(10, 5):
+    print(i)
+
+skills = ["Python", "React", "MongoDB", "NodeJS"]
+
+for skill in skills :
+    print(skill)
+
+# Loop with Index using enumerate()  : index is auto generated using this enumerate[0-n]
+
+skills = ["Python", "React", "MongoDB"]
+
+for index, skill in enumerate(skills) :
+    print(index, skill)
+
+for index, skill in enumerate(skills, start=1): #Default is 0 and if you change index starting from custom index value
+    print(index, skill)
+
+employees = ["Raj", "Ram", "Prasanth", "Kumar"]
+
+for index, employee in enumerate(employees) :
+    print(index, employee)
+
+for employee in employees:
+    print(employee)
+
+    if employee == "Prasanth":
+        break
+
+for index,value in enumerate(range(1, 6)):
+    if index == 4:
+        break
+    print(index,value)
+
+employees = ["Raj", "Ram", "Absent", "Prasanth"]
+
+for employee in employees:
+
+    if employee == "Absent":
+        continue
+
+    print(f"Processing {employee}")
 
 employee_name = "Prasanth"
 employee_id = 101
